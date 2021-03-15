@@ -7,7 +7,7 @@ jobs:
     steps:
     - name: Hello world action step
       id: hello
-      uses: sudobinbash/okta-asa-actions
+      uses: sudobinbash/okta-asa-actions@v1
       with:
         who-to-greet: 'Testium'
     # Use the output from the `hello` step
