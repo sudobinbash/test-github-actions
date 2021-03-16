@@ -11,7 +11,7 @@ jobs:
         with:
           repository: sudobinbash/okta-asa-github-action
           path: okta-asa-github-action
-          ref: v0.0.1
+          ref: main
       - name: Get ephemeral keys from Okta
         uses: ./ 
         id: get-okta-keys
