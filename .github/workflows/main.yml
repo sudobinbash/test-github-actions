@@ -25,6 +25,7 @@ jobs:
       - name: Get outputs
         run: |
           echo "User id to SSH/SCP into the server: ${{ steps.get-okta-keys.outputs.ssh-user }}"
+          echo "Ephemeral certificate for server access: ${{ steps.get-okta-keys.outputs.ssh-certificate }}"
           echo "Ephemeral private key for server access: ${{ steps.get-okta-keys.outputs.ssh-private-key }}"
           echo "Ephemeral public key for server access: ${{ steps.get-okta-keys.outputs.ssh-public-key }}"
           echo "Ephemeral private key fingerprint: ${{ steps.get-okta-keys.outputs.ssh-fingerprint }}"
@@ -35,7 +36,7 @@ jobs:
         with:
           host: ${{ steps.get-okta-keys.outputs.ssh-ip }}
           port: ${{ steps.get-okta-keys.outputs.ssh-port }}
-          key: ${{ steps.get-okta-keys.outputs.ssh-private-key }}
+          key: ${{ steps.get-okta-keys.outputs.ssh-certificate }}
           username: ${{ steps.get-okta-keys.outputs.ssh-user }}
           source: "sample/*"
           target: "sample"
