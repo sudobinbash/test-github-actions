@@ -1,15 +1,28 @@
 on: [push]
 
 jobs:
-  hello_world_job:
+  get_okta_token:
     runs-on: ubuntu-latest
-    name: Hello World Test
+    name: Get Okta ASA token to upload file to a server
     steps:
-    - name: Hello world action step
-      id: hello
-      uses: sudobinbash/okta-asa-actions@v1
-      with:
-        who-to-greet: 'Testium'
-    # Use the output from the `hello` step
-    - name: Get the output time
-      run: echo "The time was ${{ steps.hello.outputs.time }}"
+      # Checkout my private repo
+      - name: Checkout
+        uses: sudobinbash/okta-asa-github-action@v0.0.1
+      - name: Get ephemeral keys from Okta
+        uses: ./ 
+        id: get-okta-keys
+        with:
+          service-account-key: ${{ secrets.ASA_ACCOUNT_KEY }}
+          service-account-secret: ${{ secrets.ASA_ACCOUNT_SECRET }}
+          asa-team: ${{ secrets.ASA_TEAM }}
+          asa-project: ${{ secrets.ASA_PROJECT }}
+          server-name: ${{ secrets.SERVER_NAME }}
+      # Print outputs from the `get-okta-keys` step
+      - name: Get outputs
+        run: |
+          echo "User id to SSH/SCP into the server: ${{ steps.get-okta-keys.outputs.ssh-user }}"
+          echo "Ephemeral private key for server access: ${{ steps.get-okta-keys.outputs.ssh-private-key }}"
+          echo "Ephemeral public key for server access: ${{ steps.get-okta-keys.outputs.ssh-public-key }}"
+          echo "Ephemeral private key fingerprint: ${{ steps.get-okta-keys.outputs.ssh-fingerprint }}"
+          echo "IP to SSH/SCP into the server: ${{ steps.get-okta-keys.outputs.ssh-ip }}"
+          echo "port to SSH/SCP into the server: ${{ steps.get-okta-keys.outputs.ssh-port }}"
