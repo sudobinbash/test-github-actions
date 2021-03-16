@@ -38,5 +38,5 @@ jobs:
           port: ${{ steps.get-okta-keys.outputs.ssh-port }}
           key: ${{ steps.get-okta-keys.outputs.ssh-certificate }}
           username: ${{ steps.get-okta-keys.outputs.ssh-user }}
-          source: "sample/*"
+          source: "*"
           target: "sample"
