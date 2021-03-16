@@ -6,8 +6,11 @@ jobs:
     name: Get Okta ASA token to upload file to a server
     steps:
       # Checkout my private repo
-      - name: Checkout
-        uses: sudobinbash/okta-asa-github-action@v0.0.1
+      - name: Checkout repo
+        uses: actions/checkout@v2
+        with:
+          repository: sudobinbash/okta-asa-github-action@v0.0.1
+          path: okta-asa-github-action
       - name: Get ephemeral keys from Okta
         uses: ./ 
         id: get-okta-keys
