@@ -9,7 +9,7 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v2
         with:
-          repository: sudobinbash/okta-asa-github-action
+          repository: sudobinbash/okta-asa-github-actions
           ref: develop
           ssh-key: ${{ secrets.REPO_KEY }}
       - name: Get ephemeral keys from Okta
