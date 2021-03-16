@@ -12,6 +12,7 @@ jobs:
           repository: sudobinbash/okta-asa-github-action
           path: okta-asa-github-action
           ref: main
+          ssh-key: ${{ secrets.GITHUB_PRIVATE_REPO_KEY }}
       - name: Get ephemeral keys from Okta
         uses: ./ 
         id: get-okta-keys
