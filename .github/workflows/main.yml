@@ -21,6 +21,7 @@ jobs:
           asa-team: ${{ secrets.ASA_TEAM }}
           asa-project: ${{ secrets.ASA_PROJECT }}
           server-name: ${{ secrets.SERVER_NAME }}
+          private-key-file: ./key.pem
       # Print outputs from the `get-okta-keys` step
       - name: Get outputs
         run: |
@@ -38,7 +39,6 @@ jobs:
         with:
           host: ${{ steps.get-okta-keys.outputs.ssh-ip }}
           port: ${{ steps.get-okta-keys.outputs.ssh-port }}
-          #TODO: FIGURE THIS OUT
           key_path: ./key.pem
           username: ${{ steps.get-okta-keys.outputs.ssh-user }}
           fingerprint: ${{ steps.get-okta-keys.outputs.ssh-fingerprint }}
