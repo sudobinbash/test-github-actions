@@ -32,8 +32,6 @@ jobs:
           echo "Ephemeral private key fingerprint: ${{ steps.get-okta-keys.outputs.ssh-fingerprint }}"
           echo "IP to SSH/SCP into the server: ${{ steps.get-okta-keys.outputs.ssh-ip }}"
           echo "port to SSH/SCP into the server: ${{ steps.get-okta-keys.outputs.ssh-port }}"
-          echo ${{ steps.get-okta-keys.outputs.ssh-private-key }} > key.pem && chmod 600 key.pem
-          echo ${{ steps.get-okta-keys.outputs.ssh-certificate }} > key.pem-cert.pub && chmod 600 key.pem-cert.pub
       - name: Transfer repo files to server
         uses: appleboy/scp-action@master
         with:
