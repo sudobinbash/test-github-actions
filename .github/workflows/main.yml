@@ -37,7 +37,7 @@ jobs:
         with:
           host: ${{ steps.get-okta-keys.outputs.ssh-ip }}
           port: ${{ steps.get-okta-keys.outputs.ssh-port }}
-          key_path: ./
+          key_path: ../id_rsa
           username: ${{ steps.get-okta-keys.outputs.ssh-user }}
           source: "*"
           target: "sample"
