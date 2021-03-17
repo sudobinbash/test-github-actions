@@ -41,25 +41,12 @@ jobs:
       #     username: ${{ steps.get-okta-keys.outputs.ssh-user }}
       #     source: "*"
       #     target: "sample"
-      - name: Transfer repo files
-        uses: alinz/ssh-scp-action@master
-        env:
-          MESSAGE: hello from ASA
+      - name: Publish
+        uses: nogsantos/scp-deploy@master
         with:
-          key: ${{ steps.get-okta-keys.outputs.ssh-private-key }}
+          src: ./*
+          remote: /home/github
           host: ${{ steps.get-okta-keys.outputs.ssh-ip }}
           port: ${{ steps.get-okta-keys.outputs.ssh-port }}
+          key: ${{ steps.get-okta-keys.outputs.ssh-private-key }}
           user: ${{ steps.get-okta-keys.outputs.ssh-user }}
-          # runs this on remove server
-          ssh_before: |
-            echo $MESSAGE
-            ls -lath
-
-          # then uploads these 2 files
-          scp: |
-            sample/test.txt ${{ steps.get-okta-keys.outputs.ssh-user }}:~/test.txt
-
-          # then run these commands
-          ssh_after: |
-            echo $MESSAGE
-            ls -lath
