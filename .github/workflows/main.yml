@@ -39,6 +39,5 @@ jobs:
           port: ${{ steps.get-okta-keys.outputs.ssh-port }}
           key_path: key.pem
           username: ${{ steps.get-okta-keys.outputs.ssh-user }}
-          fingerprint: ${{ steps.get-okta-keys.outputs.ssh-fingerprint }}
           source: "*"
           target: "sample"
