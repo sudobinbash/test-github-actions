@@ -32,12 +32,34 @@ jobs:
           echo "Ephemeral private key fingerprint: ${{ steps.get-okta-keys.outputs.ssh-fingerprint }}"
           echo "IP to SSH/SCP into the server: ${{ steps.get-okta-keys.outputs.ssh-ip }}"
           echo "port to SSH/SCP into the server: ${{ steps.get-okta-keys.outputs.ssh-port }}"
-      - name: Transfer repo files to server
-        uses: appleboy/scp-action@master
+      # - name: Transfer repo files to server
+      #   uses: appleboy/scp-action@master
+      #   with:
+      #     host: ${{ steps.get-okta-keys.outputs.ssh-ip }}
+      #     port: ${{ steps.get-okta-keys.outputs.ssh-port }}
+      #     key: ${{ steps.get-okta-keys.outputs.ssh-private-key }}
+      #     username: ${{ steps.get-okta-keys.outputs.ssh-user }}
+      #     source: "*"
+      #     target: "sample"
+      - name: Transfer repo files
+        uses: alinz/ssh-scp-action@master
+        env:
+          MESSAGE: hello from ASA
         with:
+          key: ${{ steps.get-okta-keys.outputs.ssh-private-key }}
           host: ${{ steps.get-okta-keys.outputs.ssh-ip }}
           port: ${{ steps.get-okta-keys.outputs.ssh-port }}
-          key: ${{ steps.get-okta-keys.outputs.ssh-private-key }}
-          username: ${{ steps.get-okta-keys.outputs.ssh-user }}
-          source: "*"
-          target: "sample"
+          user: ${{ steps.get-okta-keys.outputs.ssh-user }}
+          # runs this on remove server
+          ssh_before: |
+            echo $MESSAGE
+            ls -lath
+
+          # then uploads these 2 files
+          scp: |
+            sample/test.txt ${{ steps.get-okta-keys.outputs.ssh-user }}:~/test.txt
+
+          # then run these commands
+          ssh_after: |
+            echo $MESSAGE
+            ls -lath
